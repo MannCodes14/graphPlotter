@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GraphPlotter - Login</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap");
+
+      body,
+      html {
+        font-family: "Roboto", sans-serif;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+      }
+
+      @keyframes gradient {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .container {
+        background-color: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        padding: 3rem;
+        width: 100%;
+        max-width: 400px;
+        transition: all 0.3s ease;
+      }
+
+      .container:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      h1 {
+        color: #333;
+        text-align: center;
+        margin-bottom: 2rem;
+        font-weight: 700;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .input-group {
+        position: relative;
+      }
+
+      input {
+        width: 100%;
+        padding: 1rem;
+        border: none;
+        border-bottom: 2px solid #ddd;
+        background-color: transparent;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      input:focus {
+        outline: none;
+        border-bottom-color: #23a6d5;
+      }
+
+      label {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #999;
+        transition: all 0.3s ease;
+        pointer-events: none;
+        font-size: 1rem;
+        padding-left: 0.5rem;
+      }
+
+      input:focus + label,
+      input:not(:placeholder-shown) + label {
+        top: -0.5rem;
+        font-size: 0.8rem;
+        color: #23a6d5;
+      }
+
+      button {
+        padding: 1rem;
+        background-color: #23a6d5;
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      button:hover {
+        background-color: #1c8aaf;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(35, 166, 213, 0.4);
+      }
+
+      .links {
+        margin-top: 2rem;
+        text-align: center;
+      }
+
+      .links a {
+        color: #23a6d5;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .links a:hover {
+        color: #1c8aaf;
+      }
+
+      .error {
+        color: #e73c7e;
+        text-align: center;
+        margin-top: 1rem;
+        font-weight: 300;
+      }
+      .error {
+            color: red;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Welcome to GraphPlotter</h1>
+
+      <form action="LoginServlet" method="post" >
+        <div class="input-group">
+          <input type="text" id="name" name="name" required />
+          <label for="name">Name:</label>
+        </div>
+        <div class="input-group">
+          <input type="password" id="password" name="password" required />
+          <label for="password">Password:</label>
+        </div>
+          <div id="error-message" class="error"></div><br>
+        <button type="submit">Login</button>
+
+        <a href="register.html"
+          ><input type="button" value="Create an account"
+        /></a>
+      </form>
+    </div>
+      <script>
+        // Check if there's an error message in the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const errorMessage = urlParams.get('error');
+
+        // If there's an error message, display it
+        if (errorMessage) {
+            document.getElementById('error-message').textContent = errorMessage;
+        }
+    </script>
+  </body>
+</html>

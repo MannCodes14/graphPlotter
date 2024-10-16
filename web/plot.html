@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GraphPlotter - Login</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap");
+
+      body,
+      html {
+        font-family: "Roboto", sans-serif;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+      }
+
+      @keyframes gradient {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .container {
+        background-color: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        padding: 3rem;
+        width: 100%;
+        max-width: 400px;
+        transition: all 0.3s ease;
+      }
+
+      .container:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      h1 {
+        color: #333;
+        text-align: center;
+        margin-bottom: 2rem;
+        font-weight: 700;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .input-group {
+        position: relative;
+      }
+
+      input {
+        width: 100%;
+        padding: 1rem;
+        border: none;
+        border-bottom: 2px solid #ddd;
+        background-color: transparent;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      input:focus {
+        outline: none;
+        border-bottom-color: #23a6d5;
+      }
+
+      label {
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 10%;
+        transform: translateY(-50%);
+        color: #464646;
+        transition: all 0.3s ease;
+        pointer-events: none;
+        font-size: 1rem;
+        padding-left: 0.5rem;
+      }
+      select {
+        margin-top: 10px;
+        width: 100%;
+        padding: 1rem;
+        border: none;
+        border-bottom: 2px solid #ddd;
+        background-color: transparent;
+        font-size: 1rem;
+        color: #333;
+        transition: all 0.3s ease;
+        appearance: none; /* Remove default styling */
+        background: #41cfff;
+        border-radius: 10px;
+        background-size: 1rem;
+      }
+
+      /* Focus state styling for the select element */
+      select:focus {
+        outline: none;
+        border-bottom: 3px solid #e73c7ebc;
+      }
+
+      button {
+        padding: 1rem;
+        background-color: #23a6d5;
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      button:hover {
+        background-color: #1c8aaf;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(35, 166, 213, 0.4);
+      }
+
+      .links {
+        margin-top: 2rem;
+        text-align: center;
+      }
+
+      .links a {
+        color: #23a6d5;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .links a:hover {
+        color: #1c8aaf;
+      }
+
+      .error {
+        color: #e73c7e;
+        text-align: center;
+        margin-top: 1rem;
+        font-weight: 300;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Generate Chart</h1>
+      <form action="PlotServlet" method="post" enctype="multipart/form-data">
+        <div class="input-group">
+          <label for="x">X Coordinates (comma-separated):</label><br />
+          <input type="text" id="x" name="x"  /><br /><br />
+        </div>
+
+        <div class="input-group">
+          <label for="y">Y Coordinates (comma-separated):</label><br />
+          <input type="text" id="y" name="y"  /><br /><br />
+        </div>
+
+        <div class="input-group">
+          <label for="chartType">Select Chart Type:</label><br />
+          <select id="chartType" name="chartType" required>
+            <option value="line">Line Chart</option>
+            <option value="scatter">Scatter Plot</option>
+            <option value="bar">Bar Chart</option>
+            <option value="pie">Pie Chart</option>
+            <option value="histogram">Histogram</option>
+            <option value="area">Area Chart</option>
+          </select>
+        </div>
+        <br /><br />
+        <!-- New customization fields -->
+<!--    <div class="input-group">
+        <label for="chartTitle">Chart Title:</label><br />
+        <input type="text" id="chartTitle" name="chartTitle" /><br /><br />
+    </div>
+
+    <div class="input-group">
+        <label for="xLabel">X-Axis Label:</label><br />
+        <input type="text" id="xLabel" name="xLabel" /><br /><br />
+    </div>
+
+    <div class="input-group">
+        <label for="yLabel">Y-Axis Label:</label><br />
+        <input type="text" id="yLabel" name="yLabel" /><br /><br />
+    </div>
+
+    <div class="input-group">
+        <label for="lineColor">Line/Bar Color (e.g., #ff0000):</label><br />
+        <input type="color" id="lineColor" name="lineColor" value="#000000" /><br /><br />
+    </div>-->
+
+<!--        <div class="input-group">
+        <label for="file">Upload Excel File:</label><br />
+        <input type="file" id="excelFile" name="excelFile" accept=".xls,.xlsx" required /><br /><br />
+    </div>-->
+        <button type="submit">Generate Chart</button>
+      </form>
+    </div>
+  </body>
+</html>
